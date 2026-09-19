@@ -1,5 +1,12 @@
 # Maintenance notes
 
+## 1.1.1 — September 2026
+
+- Map Blender 5's descriptive lighting socket names to the original pass library. Version 1.1.0 could silently omit diffuse, glossy/specular, transmission, volume, emission and environment passes.
+- Preserve historical Nuke layer names: specular is exported as `GlossDir`, `GlossInd` and `GlossCol` in Cycles.
+- Add assertions for all 13 Cycles lighting layers in the generated nodes and actual rendered EXR channels, plus Eevee lighting and output-group separation.
+- Re-ran the scene and real-render tests in Blender 5.0.1 and 5.2.0 LTS on Windows. Nuke-side artist validation remains separate.
+
 ## 1.1.0 — September 2026
 
 Maintenance release of Lucas Rouge and Adrien Blanchard's 2023 add-on. The original Gumroad download remains linked; this repository does not replace that listing.

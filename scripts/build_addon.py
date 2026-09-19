@@ -7,12 +7,12 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "dist"
 PACKAGE = "exr2nuke"
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 
 
 def build():
     OUTPUT.mkdir(exist_ok=True)
-    target = OUTPUT / "Exr2Nuke-1.1.0.zip"
+    target = OUTPUT / f"Exr2Nuke-{VERSION}.zip"
     files = [ROOT / "__init__.py", ROOT / "README.md"]
     if (ROOT / "LICENSE").exists():
         files.append(ROOT / "LICENSE")

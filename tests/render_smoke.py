@@ -28,6 +28,11 @@ layer.use_pass_normal = True
 layer.use_pass_z = True
 layer.use_pass_cryptomatte_object = True
 layer.cycles.denoising_store_passes = True
+for family in ("diffuse", "glossy", "transmission"):
+    for component in ("direct", "indirect", "color"):
+        setattr(layer, f"use_pass_{family}_{component}", True)
+layer.use_pass_emit = layer.use_pass_environment = True
+layer.cycles.use_pass_volume_direct = layer.cycles.use_pass_volume_indirect = True
 
 
 def cstring(stream):
@@ -79,6 +84,22 @@ with tempfile.TemporaryDirectory(prefix="exr2nuke-render-") as directory:
     assert any("normal" in name for name in names), names
     assert any("Depth" in name for name in names), names
     assert any("CryptoObject" in name for name in names), names
+    for light_pass in (
+        "DiffDir",
+        "DiffInd",
+        "DiffCol",
+        "GlossDir",
+        "GlossInd",
+        "GlossCol",
+        "TransDir",
+        "TransInd",
+        "TransCol",
+        "VolDir",
+        "VolInd",
+        "Emit",
+        "Env",
+    ):
+        assert any(name.startswith(light_pass + ".") for name in names), (light_pass, names)
     assert any(
         name.startswith("cryptomatte/") and name.endswith("/manifest")
         for attributes in headers

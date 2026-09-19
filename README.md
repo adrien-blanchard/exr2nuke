@@ -18,7 +18,7 @@ Created in 2023 by **Lucas Rouge and Adrien Blanchard**, and originally distribu
 
 ## Install and use
 
-1. Download `Exr2Nuke-1.1.0.zip` from **Releases**. Do not extract it.
+1. Download `Exr2Nuke-1.1.1.zip` from **Releases**. Do not extract it.
 2. In Blender, open **Edit > Preferences > Add-ons > Install from Disk**, select the ZIP and enable **Exr2Nuke**.
 3. Choose Cycles or Eevee, then open **View Layer Properties > Exr2Nuke**.
 4. Enable your passes, choose an output grouping and set the output paths.

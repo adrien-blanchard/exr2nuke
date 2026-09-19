@@ -13,6 +13,25 @@ import bpy
 OWNER = "exr2nuke_managed"
 LIBRARIES = Path(__file__).resolve().parent.parent / "libraries"
 
+# Blender 5 exposes descriptive socket names. Keep the original library keys
+# and exported Nuke layer names, including for older Blender files/API versions.
+PASS_ALIASES = {
+    "Diffuse Direct": "DiffDir",
+    "Diffuse Indirect": "DiffInd",
+    "Diffuse Color": "DiffCol",
+    "Glossy Direct": "GlossDir",
+    "Glossy Indirect": "GlossInd",
+    "Glossy Color": "GlossCol",
+    "Transmission Direct": "TransDir",
+    "Transmission Indirect": "TransInd",
+    "Transmission Color": "TransCol",
+    "Volume Direct": "VolumeDir",
+    "Volume Indirect": "VolumeInd",
+    "Emission": "Emit",
+    "Environment": "Env",
+    "Ambient Occlusion": "AO",
+}
+
 
 def engine_name(scene):
     if scene.render.engine == "CYCLES":
@@ -109,11 +128,11 @@ def create_setup(count, context=None):
         render.scene = scene
         render.layer = layer.name
         render.location = (0, 0)
-        useful = [
-            (socket, library[socket.name])
-            for socket in render.outputs
-            if socket.enabled and socket.name in library
-        ]
+        useful = []
+        for socket in render.outputs:
+            key = PASS_ALIASES.get(socket.name, socket.name)
+            if socket.enabled and key in library:
+                useful.append((socket, library[key]))
         if not useful:
             raise ValueError("Enable at least one supported render pass first.")
         denoise = engine == "Cycles" and layer.cycles.denoising_store_passes

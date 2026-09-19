@@ -9,7 +9,7 @@ bl_info = {
     "author": "Lucas Rouge, Adrien Blanchard",
     "description": "Render-pass outputs for compositing in Nuke",
     "blender": (3, 6, 0),
-    "version": (1, 1, 0),
+    "version": (1, 1, 1),
     "location": "Properties > View Layer > Exr2Nuke",
     "doc_url": "https://github.com/adrien-blanchard/exr2nuke",
     "tracker_url": "https://github.com/adrien-blanchard/exr2nuke/issues",
